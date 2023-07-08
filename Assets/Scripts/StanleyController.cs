@@ -5,6 +5,9 @@ using UnityEngine;
 public class StanleyController : MonoBehaviour
 {
   public LayerMask rooms;
+  public Animator animator;
+  public bool turning;
+  public float time = 5f;
 
   [SerializeField]
   bool stuck = false;
@@ -45,25 +48,46 @@ public class StanleyController : MonoBehaviour
   }
 
   void Move(string move) { 
+    Vector3 end_pos = transform.position + transform.forward * 2f ;
     if (move.Equals("left"))
     {
-      // animation for turning left 
-      transform.Rotate(new Vector3(0, -90));
+      end_pos = transform.position - transform.right * 2f ;
+      animator.SetTrigger("TurnLeft");
+      StartCoroutine(TurnAndMove(true, 1,transform.position, end_pos));
     }
     else if (move.Equals("right"))
     {
-      // animation for turning right
-      transform.Rotate(new Vector3(0, 90));
+      end_pos = transform.position + transform.right * 2f ;
+      animator.SetTrigger("TurnRight");
+      StartCoroutine(TurnAndMove(true, 1, transform.position, end_pos));
+    } else {
+      // turnLeft is dummy value never used
+      StartCoroutine(TurnAndMove(false, 1, transform.position, end_pos));
     }
-    
-    // animation for walking straight
-    transform.position += transform.forward * 2f;
 
     Collider[] collisions = Physics.OverlapSphere(transform.position, 0.1f, rooms);
     if (collisions.Length == 0) {
       Debug.Log("In an attempt to spite the narrator, Stanley simply fell into the deep, endless void");
       // animation for falling
     }
+  }
+
+  private IEnumerator TurnAndMove(bool toturn, int step, Vector3 begin_pos, Vector3 end_pos) {
+      if(toturn) {
+          do {
+              yield return new WaitForEndOfFrame();
+              Debug.Log("Turning");
+          } while(turning);
+      }
+      Debug.Log("Turning Ended Starting Move");
+      animator.SetBool("Moving", true);
+      for(float t = 0; t < 1; t += Time.deltaTime / time) {
+      // for(float t = 0; t < 1; t += Time.deltaTime / 10){
+          Debug.Log("Moving Stanley");
+          transform.position = Vector3.Lerp(begin_pos, end_pos, t);
+          yield return new WaitForEndOfFrame();
+      }
+      animator.SetBool("Moving", false);
   }
 
   List<string> GetOptions()
@@ -99,5 +123,13 @@ public class StanleyController : MonoBehaviour
     }
 
     return outputs;
+  }
+
+  public void Turning() {
+    turning = true;
+  }
+
+  public void StopTurning() {
+    turning = false;
   }
 }
