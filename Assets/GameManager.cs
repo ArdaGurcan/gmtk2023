@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
         buttonsDict = new Dictionary<string, List<GameObject>>();
         stanley = GameObject.FindGameObjectWithTag("Stanley");
         stanleyController = stanley.GetComponent<StanleyController>();
-        stanley.SetActive(false);
+        // stanley.SetActive(false);
         Transform canvas = GameObject.Find("Canvas").transform;
         float ypos = 0;
         foreach (string voiceline in voicelines)
@@ -47,7 +47,7 @@ public class GameManager : MonoBehaviour
     public void SpawnStanley() {
         stanley.SetActive(true);
         List<string> options = stanleyController.GetOptions();
-        
+
     }
 
 
