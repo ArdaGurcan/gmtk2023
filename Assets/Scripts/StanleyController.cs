@@ -18,8 +18,12 @@ public class StanleyController : MonoBehaviour
   public void Step(string instruction)
   {
     // yield return new WaitForEndOfFrame();
+<<<<<<< HEAD
     if (!stuck)
     {
+=======
+    if (!stuck) {
+>>>>>>> e443d45 (added distraction room and prefabs for special rooms)
       List<string> options = GetOptions();
       if (options.Count > 0)
       {
@@ -43,9 +47,13 @@ public class StanleyController : MonoBehaviour
           Move(move);
         }
       }
+<<<<<<< HEAD
     }
     else
     {
+=======
+    } else {
+>>>>>>> e443d45 (added distraction room and prefabs for special rooms)
       Debug.Log("Stanley just needed 5 more minutes with the distraction and then he would surely be on his way.");
     }
   }
@@ -71,6 +79,12 @@ public class StanleyController : MonoBehaviour
     {
       Debug.Log("In an attempt to spite the narrator, Stanley fell into the deep, endless void");
       // animation for falling
+    } else {
+      Room currentRoom = collisions[0].GetComponent<Room>();
+      if (currentRoom.room_type == Room.RoomType.distraction){
+          stuck = true;
+          Debug.Log("Stanley would finish the story right after he enjoyed this nice little distraction.");
+      }
     }
     else
     {
@@ -89,6 +103,8 @@ public class StanleyController : MonoBehaviour
   {
     Collider[] collisions = Physics.OverlapSphere(transform.position, 0.1f, rooms);
     (List<Vector3> dirs, List<Material> colors) = collisions[0].GetComponent<Room>().GetDoors();
+    Room currentRoom = collisions[0].GetComponent<Room>();
+    currentRoom.visited = true;
 
     List<string> outputs = new List<string>();
 
