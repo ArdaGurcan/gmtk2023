@@ -18,33 +18,37 @@ public class StanleyController : MonoBehaviour
   public void Step(string instruction)
   {
     // yield return new WaitForEndOfFrame();
-
-    List<string> options = GetOptions();
-    if (options.Count > 0)
-    {
-
-      List<string> worstOptions = new List<string>();
-      foreach (var option in options)
+    if (!stuck) {
+      List<string> options = GetOptions();
+      if (options.Count > 0)
       {
-        if (!instruction.Contains(option.Split(' ')[1]))
+
+        List<string> worstOptions = new List<string>();
+        foreach (var option in options)
         {
-          worstOptions.Add(option.Split(' ')[1]);
+          if (!instruction.Contains(option.Split(' ')[1]))
+          {
+            worstOptions.Add(option.Split(' ')[1]);
+          }
+        }
+        if (worstOptions.Count == 0)
+        {
+          Debug.Log("Stanley had only one choice, surely he wouldn't stay in the same room forever just to disobey the narrator, right?");
+        }
+        else
+        {
+          string move = worstOptions[Random.Range(0, worstOptions.Count)];
+          Debug.Log(instruction.Split("|")[0]);
+          Move(move);
         }
       }
-      if (worstOptions.Count == 0)
-      {
-        Debug.Log("Stanley had only one choice, surely he wouldn't stay in the same room forever just to disobey the narrator, right?");
-      }
-      else
-      {
-        string move = worstOptions[Random.Range(0, worstOptions.Count)];
-        Debug.Log(instruction.Split("|")[0]);
-        Move(move);
-      }
-    } 
+    } else {
+      Debug.Log("Stanley just needed 5 more minutes with the distraction and then he would surely be on his way.");
+    }
   }
 
-  void Move(string move) { 
+  void Move(string move)
+  {
     if (move.Equals("left"))
     {
       // animation for turning left 
@@ -55,14 +59,21 @@ public class StanleyController : MonoBehaviour
       // animation for turning right
       transform.Rotate(new Vector3(0, 90));
     }
-    
+
     // animation for walking straight
     transform.position += transform.forward * 2f;
 
     Collider[] collisions = Physics.OverlapSphere(transform.position, 0.1f, rooms);
-    if (collisions.Length == 0) {
-      Debug.Log("In an attempt to spite the narrator, Stanley simply fell into the deep, endless void");
+    if (collisions.Length == 0)
+    {
+      Debug.Log("In an attempt to spite the narrator, Stanley fell into the deep, endless void");
       // animation for falling
+    } else {
+      Room currentRoom = collisions[0].GetComponent<Room>();
+      if (currentRoom.room_type == Room.RoomType.distraction){
+          stuck = true;
+          Debug.Log("Stanley would finish the story right after he enjoyed this nice little distraction.");
+      }
     }
   }
 
@@ -70,7 +81,8 @@ public class StanleyController : MonoBehaviour
   {
     Collider[] collisions = Physics.OverlapSphere(transform.position, 0.1f, rooms);
     (List<Vector3> dirs, List<Material> colors) = collisions[0].GetComponent<Room>().GetDoors();
-    collisions[0].GetComponent<Room>().visited = true;
+    Room currentRoom = collisions[0].GetComponent<Room>();
+    currentRoom.visited = true;
 
     List<string> outputs = new List<string>();
 
