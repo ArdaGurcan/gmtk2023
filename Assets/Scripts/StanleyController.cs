@@ -85,7 +85,7 @@ public class StanleyController : MonoBehaviour
     }
   }
 
-  List<string> GetOptions()
+  public List<string> GetOptions()
   {
     Collider[] collisions = Physics.OverlapSphere(transform.position, 0.1f, rooms);
     (List<Vector3> dirs, List<Material> colors) = collisions[0].GetComponent<Room>().GetDoors();
