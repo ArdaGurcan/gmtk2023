@@ -39,7 +39,7 @@ public static bool paused = false;
         overlap = true;    
       }
     }
-     if (!stationary && !overlap && !paused)
+     if (!stationary && !overlap && !paused && GameManager.Check())
         transform.position = toGridPosition;
     overlap = false;
   }

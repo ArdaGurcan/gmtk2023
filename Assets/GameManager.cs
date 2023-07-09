@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
     bool inEditMode = true;
     GameObject stanley;
     StanleyController stanleyController;
-    Vector3 initialPosition;    
+    public static Vector3 initialPosition;    
     // public List<string> voicelines;
     // public GameObject buttonPrefab;
     // [SerializeField]
@@ -51,9 +51,15 @@ public class GameManager : MonoBehaviour
         Loop();
     }
 
-   
+   public static bool Check() {
+     GameObject character = GameObject.FindGameObjectWithTag("Stanley");
+     bool c =  Vector3.SqrMagnitude(character.transform.position - initialPosition) < 0.5f;
+     Debug.Log(c);
+     return c;
+   }
 
     public void RepawnStanley() {
+        StopAllCoroutines();
         stanley.transform.position = initialPosition;
         stanleyController.Reset();
         stanley.SetActive(true);

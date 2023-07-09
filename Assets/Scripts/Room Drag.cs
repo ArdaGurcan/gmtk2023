@@ -23,7 +23,7 @@ public class RoomDrag : MonoBehaviour
     }
      void OnMouseDrag()
     {   
-        if(!paused) {
+        if(!paused && GameManager.Check()) {
 
         transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition - mousePos);
         if(gameObject.transform.position.x <= 6) {
