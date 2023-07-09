@@ -151,8 +151,9 @@ public class StanleyController : MonoBehaviour
 
     public List<string> GetOptions()
     {
-        Collider[] collisions = Physics.OverlapSphere(transform.position, 0.1f, rooms);
-        (List<Vector3> dirs, List<Material> colors) = collisions[0].GetComponent<Room>().GetDoors();
+        Collider[] p_collisions = Physics.OverlapSphere(transform.position, 0.1f, rooms);
+        Room curr_room = p_collisions[0].GetComponent<Room>();
+        (List<Vector3> dirs, List<Material> colors) = curr_room.GetDoors();
 
         List<string> outputs = new List<string>();
 
@@ -163,16 +164,25 @@ public class StanleyController : MonoBehaviour
 
             if (Vector3.Magnitude(dirs[i] - transform.forward) < 0.1f)
             {
-                doorString += "forward";
+                if(curr_room.GetRoomForward() == null || 
+                    curr_room.GetRoomForward().GetComponent<Room>().doorStates[1])
+                    doorString += "forward";
             }
             else if (Vector3.Magnitude(dirs[i] - transform.right) < 0.1f)
             {
-                doorString += "right";
-            }
+                // Debug.Log(curr_room.GetRoomRight().transform.name);
+                if(curr_room.GetRoomRight() == null || 
+                    curr_room.GetRoomRight().GetComponent<Room>().doorStates[2])
+                    doorString += "right";
+            } 
             else if (Vector3.Magnitude(dirs[i] + transform.right) < 0.1f)
             {
-                doorString += "left";
-            }
+                Debug.Log("Left of Current Room is: " + curr_room.GetRoomLeft().transform.name);
+                if(curr_room.GetRoomLeft() == null || 
+                    curr_room.GetRoomLeft().GetComponent<Room>().doorStates[3]) {
+                    doorString += "left";
+                }
+            } 
             else if (Vector3.Magnitude(dirs[i] + transform.forward) > 0.1f)
             {
                 Debug.LogError("door direction doesn't match character rotation");

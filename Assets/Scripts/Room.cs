@@ -32,7 +32,7 @@ public class Room : MonoBehaviour
   public bool left;
   public bool right;
 
-  bool[] doorStates;
+  public bool[] doorStates;
 
   public RoomType room_type = RoomType.normal;
 
@@ -87,7 +87,7 @@ public class Room : MonoBehaviour
   {
     // Collider[] colliding = Physics.OverlapBox(transform.position, transform.forward*2, Quaternion.identity, rooms);
     Collider[] colliding = Physics.OverlapSphere(transform.position, 1.3f, rooms);
-    Debug.Log(transform.name +" colliding with " + colliding.Length + " objects");
+    // Debug.Log(transform.name +" colliding with " + colliding.Length + " objects");
     bool doorBelow = doorStates[1];
     bool doorLeft = doorStates[2];
     bool doorRight = doorStates[3];
@@ -95,27 +95,83 @@ public class Room : MonoBehaviour
     {
       foreach (Collider col in colliding)
       {
-        Debug.Log(transform.name + "colliding with " + col.gameObject.transform.name);
+        // Debug.Log(transform.name + "colliding with " + col.gameObject.transform.name);
         Vector3 pos = col.gameObject.transform.position;
 
-          if (pos == (transform.position - new Vector3(0, 0, 2)))// room below
+          if (IsRoomBelow(pos))// room below
             doorBelow = false;
 
           // if(pos == transform.position - new Vector3(2, 0 ,0))// room to the left
-          if ((pos == (transform.position - new Vector3(2, 0, 0))))// room to the left
+          if (IsRoomToLeft(pos))// room to the left
             doorLeft = false;
 
-          if(pos == transform.position + new Vector3(2, 0 ,0))// room to the right
-          // if (Vector3.SqrMagnitude(pos - (transform.position + new Vector3(2, 0, 0))) < 0.01f)// room below
+          if(IsRoomToRight(pos))// room to the right
             doorRight = false;
       }
-      doors[1].SetActive(doorBelow);
-      doors[2].SetActive(doorLeft);
-      doors[3].SetActive(doorRight);
     } 
+    doors[1].SetActive(doorBelow);
+    doors[2].SetActive(doorLeft);
+    doors[3].SetActive(doorRight);
 
   }
-  // void OnDrawGizmos() {
-  //   Gizmos.DrawSphere(transform.position, 1.3f);
-  // }
+
+  public bool IsRoomForward(Vector3 pos) {
+      return pos == (transform.position + new Vector3(0, 0, 2));
+  }
+
+  public bool IsRoomBelow(Vector3 pos) {
+      return pos == (transform.position - new Vector3(0, 0, 2));
+  }
+
+  public bool IsRoomToLeft(Vector3 pos) {
+      return pos == (transform.position - new Vector3(2, 0, 0));
+  }
+
+  public bool IsRoomToRight(Vector3 pos) {
+      return pos == transform.position + new Vector3(2, 0 ,0);
+  }
+
+  public GameObject GetRoomForward() {
+    Collider[] colliding = Physics.OverlapSphere(transform.position, 1.3f, rooms);
+
+    foreach(Collider col in colliding) {
+        Vector3 pos = col.gameObject.transform.position;
+        if(IsRoomForward(pos))
+          return col.gameObject;
+    }
+    return null; // No room below
+  }
+
+  public GameObject GetRoomBelow() {
+    Collider[] colliding = Physics.OverlapSphere(transform.position, 1.3f, rooms);
+
+    foreach(Collider col in colliding) {
+        Vector3 pos = col.gameObject.transform.position;
+        if(IsRoomBelow(pos))
+          return col.gameObject;
+    }
+    return null; // No room below
+  }
+
+  public GameObject GetRoomLeft() {
+    Collider[] colliding = Physics.OverlapSphere(transform.position, 1.3f, rooms);
+
+    foreach(Collider col in colliding) {
+        Vector3 pos = col.gameObject.transform.position;
+        if(IsRoomToLeft(pos))
+          return col.gameObject;
+    }
+    return null; // No room below
+  }
+
+  public GameObject GetRoomRight() {
+    Collider[] colliding = Physics.OverlapSphere(transform.position, 1.3f, rooms);
+
+    foreach(Collider col in colliding) {
+        Vector3 pos = col.gameObject.transform.position;
+        if(IsRoomToRight(pos))
+          return col.gameObject;
+    }
+    return null; // No room below
+  }
 }
