@@ -58,13 +58,13 @@ public class StanleyController : MonoBehaviour
     Vector3 end_pos = transform.position + transform.forward * 2f ;
     if (move.Equals("left"))
     {
-      end_pos = transform.position + transform.forward * 2f ;
+      end_pos = transform.position - transform.right * 2f ;
       animator.SetTrigger("TurnLeft");
       StartCoroutine(TurnAndMove(true, 1,transform.position, end_pos));
     }
     else if (move.Equals("right"))
     {
-      end_pos = transform.position + transform.forward * 2f ;
+      end_pos = transform.position + transform.right * 2f ;
       animator.SetTrigger("TurnRight");
       StartCoroutine(TurnAndMove(true, 1, transform.position, end_pos));
     } else {
@@ -101,7 +101,7 @@ public class StanleyController : MonoBehaviour
           } while(turning);
       }
 
-      transform.Rotate(0, 90, 0);
+      // transform.Rotate(0, 90, 0);
 
       Debug.Log("Turning Ended Starting Move");
       animator.SetBool("Moving", true);
