@@ -8,7 +8,6 @@ public class StanleyController : MonoBehaviour
     public Animator animator;
     public bool turning = false;
     public float time = 5f;
-    public Quaternion rot;
 
     [SerializeField]
     bool stuck = false;
@@ -92,19 +91,19 @@ public class StanleyController : MonoBehaviour
         // transform.Rotate(0, 90, 0);
 
         animator.SetBool("Moving", true);
+        StartCoroutine(Falling());
         for (float t = 0; t < 1; t += Time.deltaTime / time)
         {
             transform.position = Vector3.Lerp(begin_pos, end_pos, t);
-            yield return new WaitForEndOfFrame();
+            yield return null;
         }
         animator.SetBool("Moving", false);
 
         Collider[] collisions = Physics.OverlapSphere(transform.position, 0.1f, rooms);
-
+        Debug.Log(collisions.Length);
         if (collisions.Length == 0)
         {
             Debug.Log("In an attempt to spite the narrator, Stanley fell into the deep, endless void");
-            animator.SetBool("Falling", true);
             // animation for falling
         }
         else
@@ -120,6 +119,19 @@ public class StanleyController : MonoBehaviour
                 animator.SetBool("Stuck", true);
             }
         }
+    }
+
+    private IEnumerator Falling() {
+      Collider[] collisions;
+      do {
+        collisions = Physics.OverlapSphere(transform.position, 0.01f, rooms);
+        if(collisions.Length == 0) {
+          animator.SetBool("Falling", true);
+          animator.SetBool("Moving", false);
+        }
+        yield return null;
+      }  while(animator.GetBool("Moving"));
+      
     }
 
     public List<string> GetOptions()

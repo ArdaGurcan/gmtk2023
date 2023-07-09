@@ -22,6 +22,7 @@ public class Room : MonoBehaviour
   }
 
   public GameObject[] doors = new GameObject[4];
+  public GameObject[] walls = new GameObject[4];
   public GameObject[] footsteps = new GameObject[4];
   public Material[] colors = new Material[4];
 
@@ -43,7 +44,8 @@ public class Room : MonoBehaviour
 
     for (int i = 0; i < 4; i++)
     {
-      doors[i].SetActive(!doorStates[i]);
+      walls[i].SetActive(!doorStates[i]);
+      doors[i].SetActive(doorStates[i]);
       footsteps[i].GetComponent<Renderer>().material = colors[i];
     }
 
