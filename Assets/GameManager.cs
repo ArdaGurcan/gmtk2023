@@ -62,26 +62,28 @@ public class GameManager : MonoBehaviour
   }
 
   public void RepawnStanley()
-  {
-    // StopAllCoroutines();
-    stanley.transform.position = initialPosition;
-    stanleyController.Reset();
-    stanley.SetActive(true);
-    inEditMode = false;
-    ButtonScript[] buttons = GameObject.FindObjectsOfType<ButtonScript>();
-    foreach (ButtonScript button in buttons)
-    {
-      button.Activate();
-    }
-    GridDrag.paused = false;
-    RoomDrag.paused = false;
-    ButtonScript[] btns = GameObject.FindObjectsOfType<ButtonScript>();
-    foreach (ButtonScript btn in btns)
-    {
-      btn.Activate();
-    }
-    Loop();
-    StartCoroutine(WaitAndLoop());
+  {        
+    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+
+    // // StopAllCoroutines();
+    // stanley.transform.position = initialPosition;
+    // stanleyController.Reset();
+    // stanley.SetActive(true);
+    // inEditMode = false;
+    // ButtonScript[] buttons = GameObject.FindObjectsOfType<ButtonScript>();
+    // foreach (ButtonScript button in buttons)
+    // {
+    //   button.Activate();
+    // }
+    // GridDrag.paused = false;
+    // RoomDrag.paused = false;
+    // ButtonScript[] btns = GameObject.FindObjectsOfType<ButtonScript>();
+    // foreach (ButtonScript btn in btns)
+    // {
+    //   btn.Activate();
+    // }
+    // Loop();
+    // StartCoroutine(WaitAndLoop());
   }
   IEnumerator WaitAndLoop()
   {
