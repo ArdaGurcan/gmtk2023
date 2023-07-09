@@ -116,7 +116,7 @@ public class Room : MonoBehaviour
   }
 
   public bool IsRoomForward(Vector3 pos) {
-      return Vector3.SqrMagnitude(pos + (transform.position + new Vector3(0, 0, 2))) < 0.01f;
+      return Vector3.SqrMagnitude(pos - (transform.position + new Vector3(0, 0, 2))) < 0.01f;
   }
 
   public bool IsRoomBelow(Vector3 pos) {
@@ -128,7 +128,7 @@ public class Room : MonoBehaviour
   }
 
   public bool IsRoomToRight(Vector3 pos) {
-      return Vector3.SqrMagnitude(pos + (transform.position + new Vector3(2, 0, 0))) < 0.01f;
+      return Vector3.SqrMagnitude(pos - (transform.position + new Vector3(2, 0, 0))) < 0.01f;
   }
 
   public GameObject GetRoomForward() {
@@ -144,7 +144,7 @@ public class Room : MonoBehaviour
 
   public GameObject GetRoomBelow() {
     Collider[] colliding = Physics.OverlapSphere(transform.position, 1.3f, rooms);
-
+    
     foreach(Collider col in colliding) {
         Vector3 pos = col.gameObject.transform.position;
         if(IsRoomBelow(pos))
