@@ -22,13 +22,13 @@ public class RoomDrag : MonoBehaviour
     {
         transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition - mousePos);
         if(gameObject.transform.position.x <= 4) {
-            Vector3 MousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Vector3 MousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition-mousePos);
             MousePos.y = 0;
-            Instantiate(prefab, MousePos, gameObject.transform.rotation);
+            Instantiate(prefab, ToGrid(MousePos, 2f), gameObject.transform.rotation);
             Destroy(gameObject);
-            Debug.Log("outside");
+        
         }
-        Debug.Log(gameObject.transform.position);
+      
       
     }
 
@@ -37,4 +37,13 @@ public class RoomDrag : MonoBehaviour
     {
         Debug.Log(Camera.main.ScreenToWorldPoint(Input.mousePosition));
     }
+
+    Vector3 ToGrid(Vector3 pos, float size)
+  {
+    return new Vector3(
+            Mathf.Round(pos.x / size) * size,
+            pos.y,
+            Mathf.Round(pos.z / size) * size
+        );
+  }
 }
