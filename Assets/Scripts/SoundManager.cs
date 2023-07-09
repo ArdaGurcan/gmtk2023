@@ -6,7 +6,7 @@ public class SoundManager : MonoBehaviour
 {
     public AudioClip audio;
     public static SoundManager instance;
-    private AudioSource track01, track02, track03;
+    private AudioSource track01, track02;
     private bool isPlayingTrack01;
     void Awake() {
         if(instance == null) {
@@ -20,12 +20,12 @@ public class SoundManager : MonoBehaviour
     void Start() {
       track01 = gameObject.AddComponent<AudioSource>();
       track02 = gameObject.AddComponent<AudioSource>();
-      track03 = gameObject.AddComponent<AudioSource>();
-      track03 = gameObject.AddComponent<AudioSource>();
-      track01.loop = true;
+      // track03 = gameObject.AddComponent<AudioSource>();
+
+      track01.loop = false;
       track02.loop = true;
-      track03.loop = true;
-      track03.volume = 0.7f;
+
+
       isPlayingTrack01 = true;
       SwapTrack(audio, audio);
     }
@@ -36,8 +36,6 @@ public class SoundManager : MonoBehaviour
 
       double startTime = AudioSettings.dspTime + 0.5f;
       double duration = startClip.samples / startClip.frequency;
-      track03.clip = repeatClip;
-      track03.PlayScheduled(startTime + duration);
 
 
       isPlayingTrack01 = !isPlayingTrack01;
