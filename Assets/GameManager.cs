@@ -100,7 +100,10 @@ public class GameManager : MonoBehaviour
     {
       Loop();
     }
-
+    
+    if (Input.GetKeyDown(KeyCode.R)) {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
   }
 
   IEnumerator ChangeLevel()
