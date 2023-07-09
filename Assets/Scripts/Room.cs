@@ -87,33 +87,40 @@ public class Room : MonoBehaviour
   {
     // Collider[] colliding = Physics.OverlapBox(transform.position, transform.forward*2, Quaternion.identity, rooms);
     Collider[] colliding = Physics.OverlapSphere(transform.position, 1.3f, rooms);
-    // Debug.Log("Room colliding with " + colliding.Length + " objects");
-    if (colliding.Length > 0)
+    Debug.Log(transform.name +" colliding with " + colliding.Length + " objects");
+    if (colliding.Length > 1)
     {
       foreach (Collider col in colliding)
       {
+        Debug.Log(transform.name + "colliding with " + col.gameObject.transform.name);
         Vector3 pos = col.gameObject.transform.position;
-        if (Vector3.SqrMagnitude(transform.position - pos) > 0.1f)
+        if (!col.gameObject.transform.name.Equals(transform.name))
         {
-          if (Vector3.SqrMagnitude(pos - (transform.position - new Vector3(0, 0, 2))) < 0.1f)// room below
+          if (pos == (transform.position - new Vector3(0, 0, 2)))// room below
             doors[1].SetActive(false);
           else
             doors[1].SetActive(doorStates[1]);
 
           // if(pos == transform.position - new Vector3(2, 0 ,0))// room to the left
-          if (Vector3.SqrMagnitude(pos - (transform.position - new Vector3(2, 0, 0))) < 0.1f)// room below
+          if ((pos == (transform.position - new Vector3(2, 0, 0))))// room to the left
             doors[2].SetActive(false);
           else
             doors[2].SetActive(doorStates[2]);
 
-          // if(pos == transform.position + new Vector3(2, 0 ,0))// room to the left
-          if (Vector3.SqrMagnitude(pos - (transform.position + new Vector3(2, 0, 0))) < 0.1f)// room below
+          if(pos == transform.position + new Vector3(2, 0 ,0))// room to the right
+          // if (Vector3.SqrMagnitude(pos - (transform.position + new Vector3(2, 0, 0))) < 0.01f)// room below
             doors[3].SetActive(false);
           else
             doors[3].SetActive(doorStates[3]);
         }
       }
+    } else {
 
+      for (int i = 0; i < 4; i++)
+        doors[i].SetActive(doorStates[i]);
     }
   }
+  // void OnDrawGizmos() {
+  //   Gizmos.DrawSphere(transform.position, 1.3f);
+  // }
 }
