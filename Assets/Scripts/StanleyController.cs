@@ -6,8 +6,9 @@ public class StanleyController : MonoBehaviour
 {
   public LayerMask rooms;
   public Animator animator;
-  public bool turning;
+  public bool turning = false;
   public float time = 5f;
+  public Quaternion rot;
 
   [SerializeField]
   bool stuck = false;
@@ -57,13 +58,13 @@ public class StanleyController : MonoBehaviour
     Vector3 end_pos = transform.position + transform.forward * 2f ;
     if (move.Equals("left"))
     {
-      end_pos = transform.position - transform.right * 2f ;
+      end_pos = transform.position + transform.forward * 2f ;
       animator.SetTrigger("TurnLeft");
       StartCoroutine(TurnAndMove(true, 1,transform.position, end_pos));
     }
     else if (move.Equals("right"))
     {
-      end_pos = transform.position + transform.right * 2f ;
+      end_pos = transform.position + transform.forward * 2f ;
       animator.SetTrigger("TurnRight");
       StartCoroutine(TurnAndMove(true, 1, transform.position, end_pos));
     } else {
@@ -91,16 +92,20 @@ public class StanleyController : MonoBehaviour
   }
 
   private IEnumerator TurnAndMove(bool toturn, int step, Vector3 begin_pos, Vector3 end_pos) {
+
       if(toturn) {
           do {
-              yield return new WaitForEndOfFrame();
-              Debug.Log("Turning");
+              yield return new WaitForSeconds(1);
+              yield return null;
+              Debug.Log("Turning:" + turning);
           } while(turning);
       }
+
+      transform.Rotate(0, 90, 0);
+
       Debug.Log("Turning Ended Starting Move");
       animator.SetBool("Moving", true);
       for(float t = 0; t < 1; t += Time.deltaTime / time) {
-      // for(float t = 0; t < 1; t += Time.deltaTime / 10){
           Debug.Log("Moving Stanley");
           transform.position = Vector3.Lerp(begin_pos, end_pos, t);
           yield return new WaitForEndOfFrame();
@@ -142,11 +147,13 @@ public class StanleyController : MonoBehaviour
     return outputs;
   }
 
-  public void Turning() {
+  public void StartTurning() {
+    Debug.Log("Turning Updated to True");
     turning = true;
   }
 
   public void StopTurning() {
+    Debug.Log("Turning Updated to false");
     turning = false;
   }
 }
