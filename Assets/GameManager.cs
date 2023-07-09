@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour
         stanley = GameObject.FindGameObjectWithTag("Stanley");
         stanleyController = stanley.GetComponent<StanleyController>();
         stanley.SetActive(false);
-
+SpawnStanley();
         // Transform parent = GameObject.Find("Voice Panel").transform;
         
         // float ypos = 0;
@@ -53,11 +53,37 @@ public class GameManager : MonoBehaviour
         ButtonScript[] buttons = GameObject.FindObjectsOfType<ButtonScript>();
         foreach (ButtonScript button in buttons)
         {
-            button.Deactivate();
+            button.Activate();
         }
     }
+void Update()
+{
+    if(Input.GetKeyDown(KeyCode.Space)) {
+        Loop()
+;    }
+}
+
     public void Loop() {
-        List<Transform> buttons = (List<Transform>)GameObject.FindObjectsOfType<Button>().Select(b => b.transform);
+        ButtonScript[] buttons = GameObject.FindObjectsOfType<ButtonScript>();
+        List<string> options = stanleyController.GetOptions();
+        string allOptions = "";
+
+        foreach (string option in options)
+        {
+            allOptions += option + "\n";
+        }
+        Debug.Log(allOptions);
+        foreach (ButtonScript btn in buttons)
+        {
+            if (btn.active) {
+                if(allOptions.Contains(btn.text.Split('|')[1]) || btn.text.Split('|')[1] == "stay") {
+                    btn.Show();
+
+                } else {
+                    btn.Hide();
+                }
+            }
+        }
 
 
     }
