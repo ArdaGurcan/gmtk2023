@@ -10637,6 +10637,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6837019317522421330, guid: 30bb9209a29d54fdda02cdaee2fb2add, type: 3}
+      propertyPath: down
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6837019317522421330, guid: 30bb9209a29d54fdda02cdaee2fb2add, type: 3}
       propertyPath: room_type
       value: 2
       objectReference: {fileID: 0}
