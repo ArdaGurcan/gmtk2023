@@ -90,7 +90,7 @@ public class Room : MonoBehaviour
     // Debug.Log(transform.name +" colliding with " + colliding.Length + " objects");
     bool doorBelow = doorStates[1];
     bool doorLeft = doorStates[2];
-    bool doorRight = doorStates[3];
+    // bool doorRight = doorStates[3];
     if (colliding.Length > 1)
     {
       foreach (Collider col in colliding)
@@ -105,30 +105,30 @@ public class Room : MonoBehaviour
           if (IsRoomToLeft(pos))// room to the left
             doorLeft = false;
 
-          if(IsRoomToRight(pos))// room to the right
-            doorRight = false;
+          // if(IsRoomToRight(pos))// room to the right
+            // doorRight = false;
       }
     } 
     doors[1].SetActive(doorBelow);
     doors[2].SetActive(doorLeft);
-    doors[3].SetActive(doorRight);
+    // doors[3].SetActive(doorRight);
 
   }
 
   public bool IsRoomForward(Vector3 pos) {
-      return pos == (transform.position + new Vector3(0, 0, 2));
+      return Vector3.SqrMagnitude(pos + (transform.position + new Vector3(0, 0, 2))) < 0.01f;
   }
 
   public bool IsRoomBelow(Vector3 pos) {
-      return pos == (transform.position - new Vector3(0, 0, 2));
+      return Vector3.SqrMagnitude(pos - (transform.position - new Vector3(0, 0, 2))) < 0.01f;
   }
 
   public bool IsRoomToLeft(Vector3 pos) {
-      return pos == (transform.position - new Vector3(2, 0, 0));
+      return Vector3.SqrMagnitude(pos - (transform.position - new Vector3(2, 0, 0))) < 0.01f;
   }
 
   public bool IsRoomToRight(Vector3 pos) {
-      return pos == transform.position + new Vector3(2, 0 ,0);
+      return Vector3.SqrMagnitude(pos + (transform.position + new Vector3(2, 0, 0))) < 0.01f;
   }
 
   public GameObject GetRoomForward() {

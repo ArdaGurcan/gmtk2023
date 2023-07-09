@@ -26,7 +26,7 @@ public class RoomDrag : MonoBehaviour
         if(!paused && GameManager.Check()) {
 
         transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition - mousePos);
-        if(gameObject.transform.position.x <= 6) {
+        if(gameObject.transform.position.x <= 5) {
             Vector3 MousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition-mousePos);
             MousePos.y = 0;
             Instantiate(prefab, ToGrid(MousePos, 2f), gameObject.transform.rotation);
@@ -40,7 +40,7 @@ public class RoomDrag : MonoBehaviour
 
     void OnMouseUp()
     {
-        if(gameObject.transform.position.x > 6) {
+        if(gameObject.transform.position.x > 5) {
             transform.position = initial;
         
         }

@@ -150,6 +150,7 @@ public class StanleyController : MonoBehaviour
         animator.SetBool("Stuck", true);
       }
     }
+    yield return new WaitForSeconds(0.75f);
     GameManager.Loop();
     moving = false;
   }
