@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.43748954, g: 0.48531246, b: 0.5655872, a: 1}
+  m_IndirectSpecularColor: {r: 0.4374897, g: 0.48531282, b: 0.5655876, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -16647,8 +16647,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   mgr: {fileID: 0}
-  distraction_start: {fileID: 0}
-  distraction_loop: {fileID: 0}
+  distraction: []
+  voice_lines: []
   turning: 0
   time: 5
   moving: 0
@@ -18473,8 +18473,22 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   mgr: {fileID: 0}
-  distraction_start: {fileID: 0}
-  distraction_loop: {fileID: 0}
+  distraction:
+  - {fileID: 8300000, guid: 81aa2c32fd4d04f84923fbcd9c0f5419, type: 3}
+  - {fileID: 8300000, guid: c8a86e983ad8aa528b9a7fbc15ae322a, type: 3}
+  - {fileID: 8300000, guid: 46ef9d36075bdbeb297c8a977eea7695, type: 3}
+  voice_lines:
+  - {fileID: 8300000, guid: b3290c1ded1e2efdf8f4471007766401, type: 3}
+  - {fileID: 8300000, guid: b70b627440e5fba84ab6bac28cbc7679, type: 3}
+  - {fileID: 8300000, guid: 3695b39da9ccc6b67a91e4ee0a0ad942, type: 3}
+  - {fileID: 8300000, guid: 7ae0a6df358ebd880a228a3a7b24cf21, type: 3}
+  - {fileID: 8300000, guid: 5b1861858b98a5c0281e66c6f36081cf, type: 3}
+  - {fileID: 8300000, guid: 42b6d821b18c96bbaabd62bfe21c4a60, type: 3}
+  - {fileID: 8300000, guid: 7222d9d95d38f362388e20a6b28e47b3, type: 3}
+  - {fileID: 8300000, guid: 118aa2947e2046e618fa32228f2b3634, type: 3}
+  - {fileID: 8300000, guid: 02c353fbf43ada7daaaaa92f3c818640, type: 3}
+  - {fileID: 8300000, guid: 10f0effa68c42ebe08b3e97874eaefab, type: 3}
+  - {fileID: 8300000, guid: b140596b02c7bc385956e9837d0c42a2, type: 3}
   turning: 0
   time: 5
   moving: 0
