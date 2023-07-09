@@ -103,7 +103,10 @@ public class StanleyController : MonoBehaviour
       anim.Rebind();
       anim.Update(0f);
     }
+
   }
+
+
 
   private IEnumerator TurnAndMove(bool toturn, int step, Vector3 begin_pos, Vector3 end_pos)
   {
