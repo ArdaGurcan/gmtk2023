@@ -32,11 +32,7 @@ public class RoomDrag : MonoBehaviour
       
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        Debug.Log(Camera.main.ScreenToWorldPoint(Input.mousePosition));
-    }
+
 
     Vector3 ToGrid(Vector3 pos, float size)
   {
