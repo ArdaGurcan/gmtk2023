@@ -9,6 +9,7 @@ public class StanleyController : MonoBehaviour
     public LayerMask doors;
     public bool turning = false;
     public float time = 5f;
+    public bool moving = false;
 
     [SerializeField]
     bool stuck = false;
@@ -21,6 +22,9 @@ public class StanleyController : MonoBehaviour
 
     public void Step(string instruction)
     {
+      if (!moving) {
+
+      
         // yield return new WaitForEndOfFrame();
         if (!stuck)
         {
@@ -52,6 +56,7 @@ public class StanleyController : MonoBehaviour
         {
             Debug.Log("Stanley just needed 5 more minutes with the distraction and then he would surely be on his way.");
         }
+      }
     }
 
     void Move(string move)
@@ -92,7 +97,7 @@ public class StanleyController : MonoBehaviour
 
     private IEnumerator TurnAndMove(bool toturn, int step, Vector3 begin_pos, Vector3 end_pos)
     {
-
+        moving = true;
         if (toturn)
         {
             do
@@ -135,9 +140,11 @@ public class StanleyController : MonoBehaviour
             }
         }
         GameManager.Loop();
+        moving = false;
     }
 
     private IEnumerator Falling() {
+      moving = true;
       Collider[] collisions;
       do {
         collisions = Physics.OverlapSphere(transform.position, 0.01f, rooms);

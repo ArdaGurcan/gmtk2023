@@ -48,6 +48,7 @@ public class GameManager : MonoBehaviour
         //     ypos -= 40;
 
         // }
+        Loop();
     }
 
    

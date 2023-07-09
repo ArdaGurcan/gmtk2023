@@ -10,11 +10,14 @@ public class ButtonScript : MonoBehaviour
 
   public void Deactivate()
   {
-    active = false;
-    transform.GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().color = new Color(0.5f, 0.5f, 0.5f);
+    if (!GameObject.FindGameObjectWithTag("Stanley").GetComponent<StanleyController>().moving)
+    {
 
-    GetComponent<Button>().interactable = false;
-    
+      active = false;
+      transform.GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().color = new Color(0.5f, 0.5f, 0.5f);
+
+      GetComponent<Button>().interactable = false;
+    }
   }
 
   public void Hide()
@@ -25,10 +28,11 @@ public class ButtonScript : MonoBehaviour
   }
 
   public void Show()
-  { 
+  {
     transform.GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().color = Color.white;
-    if (active) {
-        GetComponent<Button>().interactable = true;
+    if (active)
+    {
+      GetComponent<Button>().interactable = true;
 
     }
 
@@ -37,5 +41,7 @@ public class ButtonScript : MonoBehaviour
   {
     active = true;
     GetComponent<Button>().interactable = true;
+
+
   }
 }
