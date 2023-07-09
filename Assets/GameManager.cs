@@ -21,31 +21,30 @@ public class GameManager : MonoBehaviour
         stanleyController = stanley.GetComponent<StanleyController>();
         stanley.SetActive(false);
 
-        List<GameObject> buttonsInScene = (List<GameObject>)FindObjectsOfType<Button>().Select(b => b.gameObject);
-        Transform parent = buttonsInScene[0].transform.parent;
+        Transform parent = GameObject.Find("Voice Panel").transform;
         
-        // float ypos = 0;
-        // foreach (string voiceline in voicelines)
-        // {
-        //     // instantiate button for each voiceline under canvas
-        //     Transform button = Instantiate(buttonPrefab, canvas.transform.position, canvas.rotation, canvas).transform;
+        float ypos = 0;
+        foreach (string voiceline in voicelines)
+        {
+            // instantiate button for each voiceline under canvas
+            Transform button = Instantiate(buttonPrefab, parent.transform.position, parent.rotation, parent).transform;
 
-        //     button.GetComponent<RectTransform>().anchoredPosition = new Vector3(-50, ypos, 0);
+            button.GetComponent<RectTransform>().anchoredPosition = new Vector3(-50, ypos, 0);
 
-        //     Button uiButton = button.GetComponent<Button>();
-        //     uiButton.onClick.AddListener(delegate{stanleyController.Step(voiceline);});
+            Button uiButton = button.GetComponent<Button>();
+            uiButton.onClick.AddListener(delegate{stanleyController.Step(voiceline);});
             
-        //     button.GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text = voiceline.Split('|')[0];
-        //     List<GameObject> buttons = null;
-        //     if (!buttonsDict.TryGetValue(voiceline.Split('|')[1], out buttons)) {
-        //         buttons = new List<GameObject>();
-        //     }
-        //     buttons.Add(button.gameObject);
+            button.GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text = voiceline.Split('|')[0];
+            List<GameObject> buttons = null;
+            if (!buttonsDict.TryGetValue(voiceline.Split('|')[1], out buttons)) {
+                buttons = new List<GameObject>();
+            }
+            buttons.Add(button.gameObject);
 
-        //     buttonsDict[voiceline.Split('|')[1]] = buttons;
-        //     ypos -= 40;
+            buttonsDict[voiceline.Split('|')[1]] = buttons;
+            ypos -= 40;
 
-        // }
+        }
     }
 
     public void SpawnStanley() {
