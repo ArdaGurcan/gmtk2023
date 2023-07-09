@@ -7,6 +7,7 @@ public class StanleyController : MonoBehaviour
   public LayerMask rooms;
   public Animator animator;
   public LayerMask doors;
+  public GameManager mgr;
   public bool turning = false;
   public float time = 5f;
   public bool moving = false;
@@ -17,6 +18,7 @@ public class StanleyController : MonoBehaviour
   void Start()
   {
     stuck = false;
+    mgr = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>();
     // InvokeRepeating("Step", 0, 1);
   }
 
@@ -189,8 +191,12 @@ public class StanleyController : MonoBehaviour
     if (p_collisions.Length > 0)
     {
 
-
       Room curr_room = p_collisions[0].GetComponent<Room>();
+
+      if(curr_room.room_type == Room.RoomType.end) {
+        mgr.levelComplete = true;
+      }
+
       (List<Vector3> dirs, List<Material> colors) = curr_room.GetDoors();
 
 

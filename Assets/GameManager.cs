@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
     bool inEditMode = true;
+    public bool levelComplete = false;
     GameObject stanley;
     StanleyController stanleyController;
     public static Vector3 initialPosition;    
@@ -80,10 +82,20 @@ public class GameManager : MonoBehaviour
     }
 void Update()
 {
+    if(levelComplete) {
+      StartCoroutine(ChangeLevel());
+    }
+
     if(Input.GetKeyDown(KeyCode.Space)) {
-        Loop()
-;    }
+        Loop();
+    }
+
 }
+
+    IEnumerator ChangeLevel() {
+      yield return new WaitForSeconds(5);
+      SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+    }
 
     public static void Loop() {
         ButtonScript[] buttons = GameObject.FindObjectsOfType<ButtonScript>();
