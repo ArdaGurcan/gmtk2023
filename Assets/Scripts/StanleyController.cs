@@ -8,6 +8,8 @@ public class StanleyController : MonoBehaviour
   public Animator animator;
   public LayerMask doors;
   public GameManager mgr;
+  public AudioClip distraction_start;
+  public AudioClip distraction_loop;
   public bool turning = false;
   public float time = 5f;
   public bool moving = false;
@@ -142,6 +144,7 @@ public class StanleyController : MonoBehaviour
       // close door animation
       if (currentRoom.room_type == Room.RoomType.distraction)
       {
+        
         stuck = true;
         Debug.Log("Stanley would finish the story right after he enjoyed this nice little distraction.");
         animator.SetBool("Stuck", true);
@@ -153,6 +156,7 @@ public class StanleyController : MonoBehaviour
 
   private IEnumerator Falling()
   {
+    bool change_music = false;
     moving = true;
     Collider[] collisions;
     do
@@ -162,10 +166,18 @@ public class StanleyController : MonoBehaviour
       {
         animator.SetBool("Falling", true);
         animator.SetBool("Moving", false);
+      } else {
+        if(!change_music) {
+          if(collisions.Length != 0 && !change_music) {
+            if(collisions[0].GetComponent<Room>().room_type == Room.RoomType.distraction) {
+              SoundManager.instance.SwapTrack(distraction_start, distraction_loop);
+              change_music = true;
+            }
+          }
+        }
       }
       yield return null;
     } while (animator.GetBool("Moving"));
-
   }
 
   private IEnumerator ThroughDoor()
