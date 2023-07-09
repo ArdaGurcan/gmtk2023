@@ -47,7 +47,7 @@ public class Room : MonoBehaviour
     {
       walls[i].SetActive(!doorStates[i]);
       doors[i].SetActive(doorStates[i]);
-      footsteps[i].GetComponent<Renderer>().material = colors[i];
+      // footsteps[i].GetComponent<Renderer>().material = colors[i];
     }
 
   }
