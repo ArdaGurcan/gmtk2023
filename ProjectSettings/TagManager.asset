@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Stanley
   - PartyRoom
+  - SlotRoom
+  - Room
   layers:
   - Default
   - TransparentFX

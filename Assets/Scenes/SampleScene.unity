@@ -2508,6 +2508,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: room (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 3898812718467854310, guid: 30bb9209a29d54fdda02cdaee2fb2add, type: 3}
+      propertyPath: m_TagString
+      value: Room
+      objectReference: {fileID: 0}
     - target: {fileID: 6837019317522421330, guid: 30bb9209a29d54fdda02cdaee2fb2add, type: 3}
       propertyPath: up
       value: 1
@@ -3298,6 +3302,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: room (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 3898812718467854310, guid: 30bb9209a29d54fdda02cdaee2fb2add, type: 3}
+      propertyPath: m_TagString
+      value: Room
+      objectReference: {fileID: 0}
     - target: {fileID: 6287787683715730289, guid: 30bb9209a29d54fdda02cdaee2fb2add, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -3551,6 +3559,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mousePos: {x: 0, y: 0, z: 0}
   stationary: 0
+  rooms: []
+  overlap: 0
 --- !u!65 &512414988
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -11502,6 +11512,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: room (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 3898812718467854310, guid: 30bb9209a29d54fdda02cdaee2fb2add, type: 3}
+      propertyPath: m_TagString
+      value: Room
+      objectReference: {fileID: 0}
     - target: {fileID: 6287787683715730289, guid: 30bb9209a29d54fdda02cdaee2fb2add, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -12941,6 +12955,10 @@ PrefabInstance:
     - target: {fileID: 3898812718467854310, guid: 30bb9209a29d54fdda02cdaee2fb2add, type: 3}
       propertyPath: m_Name
       value: room
+      objectReference: {fileID: 0}
+    - target: {fileID: 3898812718467854310, guid: 30bb9209a29d54fdda02cdaee2fb2add, type: 3}
+      propertyPath: m_TagString
+      value: Room
       objectReference: {fileID: 0}
     - target: {fileID: 6287787683715730289, guid: 30bb9209a29d54fdda02cdaee2fb2add, type: 3}
       propertyPath: m_Materials.Array.data[0]
