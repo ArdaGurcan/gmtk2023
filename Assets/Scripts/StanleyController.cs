@@ -60,6 +60,10 @@ public class StanleyController : MonoBehaviour
             voice_track01.PlayScheduled(startTime + duration);
             startTime = AudioSettings.dspTime + 0.5f;
             duration = voice_lines[getIndex[instruction.Split("|")[1]]].samples / voice_lines[getIndex[instruction.Split("|")[1]]].frequency + 1f;
+            voice_track02.clip = voice_lines[4];
+            startTime = AudioSettings.dspTime + 0.5f;
+            duration = voice_lines[4].samples / voice_lines[4].frequency + 1f;
+            voice_track02.PlayScheduled(startTime + duration);
 
             Debug.Log("Stanley had only one choice, surely he wouldn't stay in the same room forever just to disobey the narrator, right?");
           }
@@ -185,6 +189,12 @@ public class StanleyController : MonoBehaviour
       {
         
         stuck = true;
+        int choice = Random.Range(8,9); //TODO: INITIALIZE TO THE CORRECT INDEX for distraction
+        voice_track01.clip = voice_lines[choice];
+        voice_track01.PlayScheduled(startTime + duration);
+        startTime = AudioSettings.dspTime + 0.5f;
+        duration = voice_lines[choice].samples / voice_lines[choice].frequency + 1f;
+
         Debug.Log("Stanley would finish the story right after he enjoyed this nice little distraction.");
         animator.SetBool("Stuck", true);
       }
