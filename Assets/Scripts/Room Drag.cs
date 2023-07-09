@@ -8,6 +8,7 @@ public class RoomDrag : MonoBehaviour
 
     public Vector3 mousePos;
     public bool stationary = false;
+    public static bool paused = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,7 +20,9 @@ public class RoomDrag : MonoBehaviour
         mousePos = Input.mousePosition - Camera.main.WorldToScreenPoint(transform.position);
     }
      void OnMouseDrag()
-    {
+    {   
+        if(!paused) {
+
         transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition - mousePos);
         if(gameObject.transform.position.x <= 4) {
             Vector3 MousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition-mousePos);
@@ -27,6 +30,7 @@ public class RoomDrag : MonoBehaviour
             Instantiate(prefab, ToGrid(MousePos, 2f), gameObject.transform.rotation);
             Destroy(gameObject);
         
+        }
         }
       
       

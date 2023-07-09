@@ -14,6 +14,7 @@ public class ButtonScript : MonoBehaviour
     transform.GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().color = new Color(0.5f, 0.5f, 0.5f);
 
     GetComponent<Button>().interactable = false;
+    
   }
 
   public void Hide()

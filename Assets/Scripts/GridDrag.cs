@@ -6,7 +6,7 @@ public class GridDrag : MonoBehaviour
 {
   public Vector3 mousePos;
   public bool stationary = false;
-
+public static bool paused = false;
   void OnMouseDown()
   {
 
@@ -15,7 +15,7 @@ public class GridDrag : MonoBehaviour
 
   void OnMouseDrag()
   {
-    if (!stationary)
+    if (!stationary && !paused)
         transform.position = ToGrid(Camera.main.ScreenToWorldPoint(Input.mousePosition - mousePos), 2f);
   }
 

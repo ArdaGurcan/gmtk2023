@@ -20,7 +20,8 @@ public class GameManager : MonoBehaviour
         stanley = GameObject.FindGameObjectWithTag("Stanley");
         stanleyController = stanley.GetComponent<StanleyController>();
         stanley.SetActive(false);
-SpawnStanley();
+        GridDrag.paused = false;
+        RoomDrag.paused = false;
         // Transform parent = GameObject.Find("Voice Panel").transform;
         
         // float ypos = 0;
@@ -55,6 +56,8 @@ SpawnStanley();
         {
             button.Activate();
         }
+        GridDrag.paused = false;
+        RoomDrag.paused = false;
     }
 void Update()
 {
