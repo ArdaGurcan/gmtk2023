@@ -108,7 +108,7 @@ public class GameManager : MonoBehaviour
 
   IEnumerator ChangeLevel()
   {
-    yield return new WaitForSeconds(5);
+    yield return new WaitForSeconds(2);
     SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
   }
 
