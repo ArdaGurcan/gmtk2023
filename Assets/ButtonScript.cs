@@ -6,17 +6,15 @@ using UnityEngine.UI;
 public class ButtonScript : MonoBehaviour
 {
     public string text;
+    public bool active = true;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-
-        // GetComponent<Button>().onClick.AddListener(delegate{stanleyController.Step(text);});
+    public void Deactivate() {
+        active = false;
+        GetComponent<Button>().interactable = false;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+    public void Activate() {
+        active = true;
+        GetComponent<Button>().interactable = true;
     }
 }

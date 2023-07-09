@@ -6163,7 +6163,7 @@ MonoBehaviour:
   animator: {fileID: 1149833393}
   doors:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 256
   turning: 0
   time: 5
   stuck: 0
