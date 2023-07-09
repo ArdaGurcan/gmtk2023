@@ -88,37 +88,32 @@ public class Room : MonoBehaviour
     // Collider[] colliding = Physics.OverlapBox(transform.position, transform.forward*2, Quaternion.identity, rooms);
     Collider[] colliding = Physics.OverlapSphere(transform.position, 1.3f, rooms);
     Debug.Log(transform.name +" colliding with " + colliding.Length + " objects");
+    bool doorBelow = doorStates[1];
+    bool doorLeft = doorStates[2];
+    bool doorRight = doorStates[3];
     if (colliding.Length > 1)
     {
       foreach (Collider col in colliding)
       {
         Debug.Log(transform.name + "colliding with " + col.gameObject.transform.name);
         Vector3 pos = col.gameObject.transform.position;
-        if (!col.gameObject.transform.name.Equals(transform.name))
-        {
+
           if (pos == (transform.position - new Vector3(0, 0, 2)))// room below
-            doors[1].SetActive(false);
-          else
-            doors[1].SetActive(doorStates[1]);
+            doorBelow = false;
 
           // if(pos == transform.position - new Vector3(2, 0 ,0))// room to the left
           if ((pos == (transform.position - new Vector3(2, 0, 0))))// room to the left
-            doors[2].SetActive(false);
-          else
-            doors[2].SetActive(doorStates[2]);
+            doorLeft = false;
 
           if(pos == transform.position + new Vector3(2, 0 ,0))// room to the right
           // if (Vector3.SqrMagnitude(pos - (transform.position + new Vector3(2, 0, 0))) < 0.01f)// room below
-            doors[3].SetActive(false);
-          else
-            doors[3].SetActive(doorStates[3]);
-        }
+            doorRight = false;
       }
-    } else {
+      doors[1].SetActive(doorBelow);
+      doors[2].SetActive(doorLeft);
+      doors[3].SetActive(doorRight);
+    } 
 
-      for (int i = 0; i < 4; i++)
-        doors[i].SetActive(doorStates[i]);
-    }
   }
   // void OnDrawGizmos() {
   //   Gizmos.DrawSphere(transform.position, 1.3f);
