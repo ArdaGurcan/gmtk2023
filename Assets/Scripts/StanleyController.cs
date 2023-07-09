@@ -8,11 +8,14 @@ public class StanleyController : MonoBehaviour
   public Animator animator;
   public LayerMask doors;
   public GameManager mgr;
-  public AudioClip distraction_start;
-  public AudioClip distraction_loop;
+  public AudioClip[] distraction;
+  private AudioSource voice_track01, voice_track02;
+  public AudioClip[] voice_lines;
   public bool turning = false;
   public float time = 5f;
   public bool moving = false;
+  private double startTime;
+  private double duration = 0;
 
   [SerializeField]
   bool stuck = false;
@@ -21,15 +24,21 @@ public class StanleyController : MonoBehaviour
   {
     stuck = false;
     mgr = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>();
+    voice_track01 = gameObject.AddComponent<AudioSource>();
+    voice_track02 = gameObject.AddComponent<AudioSource>();
+    startTime = AudioSettings.dspTime + 0.5f;
     // InvokeRepeating("Step", 0, 1);
   }
 
   public void Step(string instruction)
   {
+    IDictionary<string,int> getIndex = new Dictionary<string, int>();
+    getIndex.Add("stay", 0);// Assign Correctly
+    getIndex.Add("forward", 1);
+    getIndex.Add("left", 2);
+    getIndex.Add("right", 3);
     if (!moving)
     {
-
-
       // yield return new WaitForEndOfFrame();
       if (!stuck)
       {
@@ -47,11 +56,23 @@ public class StanleyController : MonoBehaviour
           }
           if (worstOptions.Count == 0)
           {
+            voice_track01.clip = voice_lines[getIndex[instruction.Split("|")[1]]];
+            voice_track01.PlayScheduled(startTime + duration);
+            startTime = AudioSettings.dspTime + 0.5f;
+            duration = voice_lines[getIndex[instruction.Split("|")[1]]].samples / voice_lines[getIndex[instruction.Split("|")[1]]].frequency + 1f;
+
             Debug.Log("Stanley had only one choice, surely he wouldn't stay in the same room forever just to disobey the narrator, right?");
           }
           else
           {
             string move = worstOptions[Random.Range(0, worstOptions.Count)];
+            int choice = getIndex[instruction.Split("|")[1]];            
+
+            duration = voice_lines[choice].samples / voice_lines[choice].frequency + 1f; // TODO: Change to move in direction
+            voice_track01.clip = voice_lines[choice];
+            voice_track01.PlayScheduled(startTime + duration);
+            startTime = AudioSettings.dspTime + 0.5f;
+            duration = voice_lines[choice].samples / voice_lines[choice].frequency + 1f; // TODO: Change to move in direction
             Debug.Log(instruction.Split("|")[0]);
             Move(move);
           }
@@ -66,23 +87,39 @@ public class StanleyController : MonoBehaviour
 
   void Move(string move)
   {
+    int choice = -1;
     Vector3 end_pos = transform.position + transform.forward * 2f;
     if (move.Equals("left"))
     {
       end_pos = transform.position - transform.right * 2f;
       animator.SetTrigger("TurnLeft");
       StartCoroutine(TurnAndMove(true, 1, transform.position, end_pos));
+      choice = 6;
+      voice_track02.clip = voice_lines[choice];
+      voice_track02.PlayScheduled(startTime + duration);
+      startTime = AudioSettings.dspTime + 0.5f;
+      duration = voice_lines[choice].samples / voice_lines[choice].frequency + 2f; // TODO: Change to disappointment left voice line
     }
     else if (move.Equals("right"))
     {
       end_pos = transform.position + transform.right * 2f;
       animator.SetTrigger("TurnRight");
       StartCoroutine(TurnAndMove(true, 1, transform.position, end_pos));
+      choice = 7;
+      voice_track02.clip = voice_lines[choice];
+      voice_track02.PlayScheduled(startTime + duration);
+      startTime = AudioSettings.dspTime + 0.5f;
+      duration = voice_lines[choice].samples / voice_lines[choice].frequency + 1f; // TODO: Change to disappointment right voice line
     }
     else
     {
       // turnLeft is dummy value never used
       StartCoroutine(TurnAndMove(false, 1, transform.position, end_pos));
+      choice = 5;
+      voice_track02.clip = voice_lines[choice];
+      voice_track02.PlayScheduled(startTime + duration);
+      startTime = AudioSettings.dspTime + 0.5f;
+      duration = voice_lines[choice].samples / voice_lines[choice].frequency + 1f; // TODO: Change to disappointment forward voice line
     }
 
   }
@@ -137,7 +174,6 @@ public class StanleyController : MonoBehaviour
     if (collisions.Length == 0)
     {
       Debug.Log("In an attempt to spite the narrator, Stanley fell into the deep, endless void");
-      // animation for falling
     }
     else
     {
@@ -170,12 +206,23 @@ public class StanleyController : MonoBehaviour
       {
         animator.SetBool("Falling", true);
         animator.SetBool("Moving", false);
+        int choice = 10; //TODO: INITIALIZE TO THE CORRECT INDEX for falling
+        voice_track01.clip = voice_lines[choice];
+        voice_track01.PlayScheduled(startTime + duration);
+        startTime = AudioSettings.dspTime + 0.5f;
+        duration = voice_lines[choice].samples / voice_lines[choice].frequency + 1f;
       } else {
         if(!change_music) {
           if(collisions.Length != 0 && !change_music) {
             if(collisions[0].GetComponent<Room>().room_type == Room.RoomType.distraction) {
-              SoundManager.instance.SwapTrack(distraction_start, distraction_loop);
+              int index = Random.Range(0,2);
+              SoundManager.instance.SwapTrack(distraction[index], distraction[index]);
               change_music = true;
+              int choice = Random.Range(8,9); //TODO: INITIALIZE TO THE CORRECT INDEX for distraction
+              voice_track01.clip = voice_lines[choice];
+              voice_track01.PlayScheduled(startTime + duration);
+              startTime = AudioSettings.dspTime + 0.5f;
+              duration = voice_lines[choice].samples / voice_lines[choice].frequency + 1f;
             }
           }
         }
