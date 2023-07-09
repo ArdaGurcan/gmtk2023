@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.4374892, g: 0.48531204, b: 0.5655867, a: 1}
+  m_IndirectSpecularColor: {r: 0.43748954, g: 0.48531246, b: 0.5655872, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -4953,7 +4953,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 215
+    m_Bits: 471
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -5343,6 +5343,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   animator: {fileID: 0}
+  doors:
+    serializedVersion: 2
+    m_Bits: 0
   turning: 0
   time: 5
   stuck: 0
@@ -6011,6 +6014,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   animator: {fileID: 1149833393}
+  doors:
+    serializedVersion: 2
+    m_Bits: 0
   turning: 0
   time: 5
   stuck: 0
