@@ -25,6 +25,7 @@ public class Room : MonoBehaviour
   public GameObject[] walls = new GameObject[4];
   public GameObject[] footsteps = new GameObject[4];
   public Material[] colors = new Material[4];
+  public LayerMask rooms;
 
   public bool up;
   public bool down;
@@ -80,6 +81,26 @@ public class Room : MonoBehaviour
 
   void Update()
   {
+    // Collider[] colliding = Physics.OverlapBox(transform.position, transform.forward*2, Quaternion.identity, rooms);
+    Collider[] colliding = Physics.OverlapSphere(transform.position, 1.3f, rooms);
+    foreach(Collider col in colliding) {
+      Vector3 pos = col.gameObject.transform.position;
+        if(Vector3.SqrMagnitude(pos - (transform.position - new Vector3(0, 0, 2))) < 0.1f)// room below
+          doors[1].SetActive(false);
+        else
+          doors[1].SetActive(doorStates[1]);
 
+        // if(pos == transform.position - new Vector3(2, 0 ,0))// room to the left
+        if(Vector3.SqrMagnitude(pos - (transform.position - new Vector3(2, 0, 0))) < 0.1f)// room below
+          doors[2].SetActive(false);
+        else
+          doors[2].SetActive(doorStates[2]);
+
+        // if(pos == transform.position + new Vector3(2, 0 ,0))// room to the left
+        if(Vector3.SqrMagnitude(pos - (transform.position + new Vector3(2, 0, 0))) < 0.1f)// room below
+          doors[3].SetActive(false);
+        else
+          doors[3].SetActive(doorStates[3]);
+    }
   }
 }

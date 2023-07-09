@@ -411,8 +411,11 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 36c0ec36df18747fcb8404e1ce69a867, type: 2}
   - {fileID: 2100000, guid: 36c0ec36df18747fcb8404e1ce69a867, type: 2}
   - {fileID: 2100000, guid: 36c0ec36df18747fcb8404e1ce69a867, type: 2}
-  up: 1
-  down: 1
+  rooms:
+    serializedVersion: 2
+    m_Bits: 128
+  up: 0
+  down: 0
   left: 0
   right: 0
   room_type: 0
