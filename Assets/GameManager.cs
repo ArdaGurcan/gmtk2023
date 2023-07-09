@@ -58,6 +58,7 @@ public class GameManager : MonoBehaviour
         }
         GridDrag.paused = false;
         RoomDrag.paused = false;
+        Loop();
     }
 void Update()
 {
@@ -66,9 +67,11 @@ void Update()
 ;    }
 }
 
-    public void Loop() {
+    public static void Loop() {
         ButtonScript[] buttons = GameObject.FindObjectsOfType<ButtonScript>();
-        List<string> options = stanleyController.GetOptions();
+        GameObject character = GameObject.FindGameObjectWithTag("Stanley");
+        StanleyController controller = character.GetComponent<StanleyController>();
+        List<string> options = controller.GetOptions();
         string allOptions = "";
 
         foreach (string option in options)

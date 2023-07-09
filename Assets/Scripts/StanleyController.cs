@@ -121,6 +121,7 @@ public class StanleyController : MonoBehaviour
                 animator.SetBool("Stuck", true);
             }
         }
+        GameManager.Loop();
     }
 
     private IEnumerator Falling() {
@@ -177,7 +178,7 @@ public class StanleyController : MonoBehaviour
             } 
             else if (Vector3.Magnitude(dirs[i] + transform.right) < 0.1f)
             {
-                Debug.Log("Left of Current Room is: " + curr_room.GetRoomLeft().transform.name);
+                // Debug.Log("Left of Current Room is: " + curr_room.GetRoomLeft().transform.name);
                 if(curr_room.GetRoomLeft() == null || 
                     curr_room.GetRoomLeft().GetComponent<Room>().doorStates[3]) {
                     doorString += "left";
