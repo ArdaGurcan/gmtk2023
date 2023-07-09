@@ -18,7 +18,7 @@ public class DoorClose : MonoBehaviour
         
     }
 
-    public void closedoor() {
+    public void CloseDoor() {
       animator.SetTrigger("Close");
     }
 }

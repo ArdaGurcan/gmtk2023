@@ -6,6 +6,7 @@ public class StanleyController : MonoBehaviour
 {
     public LayerMask rooms;
     public Animator animator;
+    public LayerMask doors;
     public bool turning = false;
     public float time = 5f;
 
@@ -92,6 +93,7 @@ public class StanleyController : MonoBehaviour
 
         animator.SetBool("Moving", true);
         StartCoroutine(Falling());
+        StartCoroutine(ThroughDoor());
         for (float t = 0; t < 1; t += Time.deltaTime / time)
         {
             transform.position = Vector3.Lerp(begin_pos, end_pos, t);
@@ -100,7 +102,7 @@ public class StanleyController : MonoBehaviour
         animator.SetBool("Moving", false);
 
         Collider[] collisions = Physics.OverlapSphere(transform.position, 0.1f, rooms);
-        Debug.Log(collisions.Length);
+        // Debug.Log(collisions.Length);
         if (collisions.Length == 0)
         {
             Debug.Log("In an attempt to spite the narrator, Stanley fell into the deep, endless void");
@@ -110,7 +112,7 @@ public class StanleyController : MonoBehaviour
         {
             Room currentRoom = collisions[0].GetComponent<Room>();
             currentRoom.visited = true;
-            Debug.Log(currentRoom.room_type);
+            // Debug.Log(currentRoom.room_type);
             // close door animation
             if (currentRoom.room_type == Room.RoomType.distraction)
             {
@@ -132,6 +134,19 @@ public class StanleyController : MonoBehaviour
         yield return null;
       }  while(animator.GetBool("Moving"));
       
+    }
+
+    private IEnumerator ThroughDoor() {
+      do {
+        Collider[] collisions = Physics.OverlapSphere(transform.position + transform.up*0.7f, 0.1f, doors);
+        // Debug.Log("Checking for doors: " + collisions.Length);
+        if(collisions.Length != 0) {
+          DoorClose dc = collisions[0].GetComponentInChildren<DoorClose>();
+          // Debug.Log("In Door Trigger");
+          dc.CloseDoor();
+        }
+        yield return null;
+      } while(animator.GetBool("Moving"));
     }
 
     public List<string> GetOptions()
@@ -177,4 +192,8 @@ public class StanleyController : MonoBehaviour
     {
         turning = false;
     }
+
+    // void OnDrawGizmos() {
+    //   Gizmos.DrawSphere(transform.position+transform.up*0.7f, 0.1f);
+    // }
 }

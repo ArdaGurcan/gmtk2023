@@ -201,25 +201,25 @@ AnimatorStateMachine:
   m_ChildStates:
   - serializedVersion: 1
     m_State: {fileID: -7995492217024679038}
-    m_Position: {x: 40, y: 340, z: 0}
+    m_Position: {x: 150, y: 380, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -4392154987718637462}
-    m_Position: {x: 570, y: 220, z: 0}
+    m_Position: {x: 520, y: 330, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -6856379176812499049}
-    m_Position: {x: 740, y: 700, z: 0}
+    m_Position: {x: 800, y: 700, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -4743973171774292322}
-    m_Position: {x: 160, y: 620, z: 0}
+    m_Position: {x: 130, y: 620, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 3742330527888578855}
     m_Position: {x: 460, y: 130, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -7167296009856376490}
-    m_Position: {x: 370, y: 700, z: 0}
+    m_Position: {x: 470, y: 720, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -7849152785719346336}
-    m_Position: {x: 750, y: 490, z: 0}
+    m_Position: {x: 1060, y: 630, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 8858914500125443803}
     m_Position: {x: 860, y: 170, z: 0}
@@ -328,12 +328,12 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.25
-  m_TransitionOffset: 0
-  m_ExitTime: 0.74137926
-  m_HasExitTime: 1
-  m_HasFixedDuration: 1
-  m_InterruptionSource: 0
+  m_TransitionDuration: 0
+  m_TransitionOffset: 0.09493686
+  m_ExitTime: 0.99999994
+  m_HasExitTime: 0
+  m_HasFixedDuration: 0
+  m_InterruptionSource: 2
   m_OrderedInterruption: 1
   m_CanTransitionToSelf: 1
 --- !u!1101 &-492246123020537866
@@ -690,12 +690,12 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.25
-  m_TransitionOffset: 0
-  m_ExitTime: 0.74137926
-  m_HasExitTime: 1
-  m_HasFixedDuration: 1
-  m_InterruptionSource: 0
+  m_TransitionDuration: 0
+  m_TransitionOffset: 0.06524048
+  m_ExitTime: 0.9191031
+  m_HasExitTime: 0
+  m_HasFixedDuration: 0
+  m_InterruptionSource: 2
   m_OrderedInterruption: 1
   m_CanTransitionToSelf: 1
 --- !u!1102 &8858914500125443803
