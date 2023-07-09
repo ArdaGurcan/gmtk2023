@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     bool inEditMode = true;
     GameObject stanley;
     StanleyController stanleyController;
+    Vector3 initialPosition;    
     // public List<string> voicelines;
     // public GameObject buttonPrefab;
     // [SerializeField]
@@ -19,7 +20,8 @@ public class GameManager : MonoBehaviour
         // buttonsDict = new Dictionary<string, List<GameObject>>();
         stanley = GameObject.FindGameObjectWithTag("Stanley");
         stanleyController = stanley.GetComponent<StanleyController>();
-        stanley.SetActive(false);
+        // stanley.SetActive(false);
+        initialPosition = stanley.transform.position;
         GridDrag.paused = false;
         RoomDrag.paused = false;
         // Transform parent = GameObject.Find("Voice Panel").transform;
@@ -48,7 +50,11 @@ public class GameManager : MonoBehaviour
         // }
     }
 
-    public void SpawnStanley() {
+   
+
+    public void RepawnStanley() {
+        stanley.transform.position = initialPosition;
+        stanleyController.Reset();
         stanley.SetActive(true);
         inEditMode = false;
         ButtonScript[] buttons = GameObject.FindObjectsOfType<ButtonScript>();
@@ -58,6 +64,11 @@ public class GameManager : MonoBehaviour
         }
         GridDrag.paused = false;
         RoomDrag.paused = false;
+        ButtonScript[] btns = GameObject.FindObjectsOfType<ButtonScript>();
+        foreach (ButtonScript btn in btns)
+        {
+            btn.Activate();
+        }
         Loop();
     }
 void Update()

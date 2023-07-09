@@ -77,6 +77,19 @@ public class StanleyController : MonoBehaviour
 
     }
 
+
+    public void Reset() {
+
+      animator.SetBool("Moving", false);
+      animator.SetBool("Falling", false);
+      animator.SetBool("Stuck", false);
+      Animator[] anims = GameObject.FindObjectsOfType<Animator>();
+      foreach (Animator anim in anims) {
+        anim.Rebind();
+        anim.Update(0f);
+      }
+    }
+
     private IEnumerator TurnAndMove(bool toturn, int step, Vector3 begin_pos, Vector3 end_pos)
     {
 
